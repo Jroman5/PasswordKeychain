@@ -10,8 +10,12 @@ public class AccountHandler {
          this.accountObservableList = FXCollections.observableArrayList();
     }
 
-    public void setAccount(int index, Account account){
-        this.accountObservableList.set(index, account);
+    public void setAccount(int index, String siteName, String username, String password){
+        Account editable = this.accountObservableList.get(index);
+        editable.setSiteName(siteName);
+        editable.setUsername(username);
+        editable.setPassword(password);
+        this.accountObservableList.set(index, editable);
     }
 
     public void removeAccount(Account account){
@@ -26,6 +30,10 @@ public class AccountHandler {
         this.accountObservableList.add(account);
     }
 
+    public void addAccount(String siteName, String userName, String password){
+        this.accountObservableList.add(new Account(siteName, userName, password));
+    }
+
     //create link to database and load in all accounts
     private void init(){
 
@@ -33,5 +41,9 @@ public class AccountHandler {
 
     public ObservableList<Account> getAccountObservableList() {
         return accountObservableList;
+    }
+
+    public boolean isEmpty(){
+        return this.getAccountObservableList().isEmpty();
     }
 }
