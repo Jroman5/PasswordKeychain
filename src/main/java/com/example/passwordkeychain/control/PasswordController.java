@@ -37,6 +37,9 @@ public class PasswordController {
 
     @FXML
     protected void onItemSelect(){
+        if(accountHandler.isEmpty()){
+            return;
+        }
         Account selected = websites.getSelectionModel().getSelectedItem();
         site_name_field.setText(selected.getSiteName());
         site_username_field.setText(selected.getUsername());
@@ -46,16 +49,20 @@ public class PasswordController {
 
     @FXML
     protected void onSaveButtonClick() {
-        Account editable = websites.getSelectionModel().getSelectedItem();
-        editable.setSiteName(site_name_field.getText());
-        editable.setUsername(site_username_field.getText());
-        editable.setPassword(site_password_field.getText());
-
-        accountHandler.setAccount(websites.getSelectionModel().getSelectedIndex(), editable);
+        if(accountHandler.isEmpty()){
+            return;
+        }
+        accountHandler.setAccount(websites.getSelectionModel().getSelectedIndex()
+                ,site_name_field.getText()
+                ,site_username_field.getText()
+                ,site_password_field.getText());
     }
 
     @FXML
     protected void onDeleteButtonClick(){
+        if(accountHandler.isEmpty()){
+            return;
+        }
         accountHandler.removeAccount(websites.getSelectionModel().getSelectedIndex());
 
     }
@@ -63,7 +70,6 @@ public class PasswordController {
     @FXML
     protected void onNewSiteButtonClick(){
         websites.setItems(accountHandler.getAccountObservableList());
-        accountHandler.addAccount(new Account(site_name_field.getText(), site_username_field.getText(), site_password_field.getText()));
-
+        accountHandler.addAccount(site_name_field.getText(), site_username_field.getText(), site_password_field.getText());
     }
 }
