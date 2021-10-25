@@ -63,6 +63,7 @@ public class PasswordController {
         if(accountHandler.isEmpty()){
             return;
         }
+
         accountHandler.removeAccount(websites.getSelectionModel().getSelectedIndex());
 
     }
