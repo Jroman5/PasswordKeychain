@@ -1,20 +1,30 @@
 package com.example.passwordkeychain.model;
 
+import org.bson.types.ObjectId;
+
 public class Account {
+    private ObjectId id;
     private String siteName;
     private String username;
     private String password;
 
     public Account(){
-        this.siteName = "";
-        this.username = "";
-        this.password = "";
+        this.setId(new ObjectId());
     }
 
     public Account(String siteName, String username, String password){
+        this.setId(new ObjectId());
         this.siteName = siteName;
         this.username = username;
         this.password = password;
+    }
+
+    public ObjectId getId() {
+        return id;
+    }
+
+    public void setId(final ObjectId id) {
+        this.id = id;
     }
 
     public void setPassword(String password) {
