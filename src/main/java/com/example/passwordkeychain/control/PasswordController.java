@@ -9,12 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
-/*TODO: 10/25/2021
-    update the delete and save such that NullPointerExceptions dont occur(deleting on an empty list, saving on an empty list)
-    look into making a method that creates an account object and adds it to the list in AccountHandler
-   create database handler (should be able to return an ObservableList<Account> for the list view to use)
-   create database
-   create init protocols
+/*TODO: 10/28/2021
    add encryption
 *  */
 
@@ -31,13 +26,22 @@ public class PasswordController {
     private TextField site_password_field;
 
     @FXML
-    private ListView<Account> websites = new ListView<>(accountHandler.getAccountObservableList());
+    private ListView<Account> websites = new ListView<Account>(accountHandler.getAccountObservableList()) ;
 
 
+    /**
+     * Links the ListView to the AccountObservableList from the accountHandler
+     */
+    public void initialize(){
+        websites.setItems(accountHandler.getAccountObservableList());
+    }
 
+    /**
+     * Displays the information associated to the account that was selected
+     */
     @FXML
     protected void onItemSelect(){
-        if(accountHandler.isEmpty()){
+        if(websites.getSelectionModel().getSelectedItem() == null){
             return;
         }
         Account selected = websites.getSelectionModel().getSelectedItem();
@@ -47,6 +51,9 @@ public class PasswordController {
 
     }
 
+    /**
+     * updates the selected account with the information store retrieved from the text fields
+     */
     @FXML
     protected void onSaveButtonClick() {
         if(accountHandler.isEmpty()){
@@ -58,6 +65,9 @@ public class PasswordController {
                 ,site_password_field.getText());
     }
 
+    /**
+     * Deletes the account selected
+     */
     @FXML
     protected void onDeleteButtonClick(){
         if(accountHandler.isEmpty()){
@@ -68,9 +78,12 @@ public class PasswordController {
 
     }
 
+    /**
+     * Appends a new Account to the accountHandler
+     */
     @FXML
     protected void onNewSiteButtonClick(){
-        websites.setItems(accountHandler.getAccountObservableList());
         accountHandler.addAccount(site_name_field.getText(), site_username_field.getText(), site_password_field.getText());
     }
+
 }

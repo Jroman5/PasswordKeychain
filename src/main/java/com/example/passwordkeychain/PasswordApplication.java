@@ -1,5 +1,6 @@
 package com.example.passwordkeychain;
 
+import com.example.passwordkeychain.control.PasswordController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
