@@ -20,7 +20,6 @@ public class DatabaseTest {
         InsertOneResult res = db.insertAccount(testAccount);
 
         Account testAccountRetrieved = db.findAccount(testAccount);
-        System.out.println(testAccountRetrieved.getId());
 
         Assert.assertEquals(testAccount.getId(),testAccountRetrieved.getId());
         Assert.assertEquals(testAccount.getSiteName(), testAccountRetrieved.getSiteName());
@@ -34,6 +33,8 @@ public class DatabaseTest {
         Database db = Database.getInstance();
 
         Account testAccount = new Account("siteNameTest", "usernameTest", "passwordTest");
+        db.insertAccount(testAccount);
+
         DeleteResult res = db.deleteAccount(testAccount);
 
         Account searchRes = db.findAccount(testAccount);
@@ -65,5 +66,6 @@ public class DatabaseTest {
 
 
     }
+
 
 }
